@@ -1,0 +1,26 @@
+{
+  "name": "multi-step-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "three": "^0.109.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "es-dev-server": "^2.1.0",
+    "sass": "^1.71.1",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build-ts": "tsc",
+    "build-sass": "sass",
+    "watch-ts": "tsc --watch",
+    "watch-scss": "sass styles:dist --watch",
+    "watch-http": "es-dev-server --app-index index.html --node-resolve --watch --open",
+    "start": "concurrently --kill-others 'npm:watch-*'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
