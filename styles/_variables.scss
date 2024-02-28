@@ -1,0 +1,49 @@
+// Layout
+$mobile-width: 375px;
+$desktop-width: 1440px;
+
+// Colors
+// Primary
+$marine-blue: hsl(213, 96%, 18%);
+$purplish-blue: hsl(243, 100%, 62%);
+$pastel-blue: hsl(228, 100%, 84%);
+$light-blue: hsl(206, 94%, 87%);
+$strawberry-red: hsl(354, 84%, 57%);
+// #918dfe;
+// #7571e9
+
+// Neutral
+$cool-gray: hsl(231, 11%, 63%);
+$light-gray: hsl(229, 24%, 87%);
+$magnolia: hsl(217, 100%, 97%);
+$alabaster: hsl(231, 100%, 99%);
+$white: hsl(0, 0%, 100%);
+
+// Typography
+// Body Copy
+$font-size-paragraph: 16px;
+
+// Font
+$font-family-body: "Ubuntu", sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Import fonts using @font-face
+@font-face {
+  font-family: "Ubuntu-Regular";
+  font-weight: $font-weight-regular;
+  src: url("../src/assets/fonts/Ubuntu-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu-Medium";
+  font-weight: $font-weight-medium;
+  src: url("../src/assets/fonts/Ubuntu-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu-Bold";
+  font-weight: $font-weight-bold;
+  src: url("../src/assets/fonts/Ubuntu-Bold.ttf") format("truetype");
+}

@@ -1,4 +1,139 @@
+@import "variables";
+
 body {
-  background-color: red;
-  color: green;
+  font-size: $font-size-paragraph;
+  font-family: $font-family-body;
+  background-color: $magnolia;
+}
+
+/* ------------------
+------ BOX  ---------
+--------------------- */
+.box {
+  width: 80%;
+  height: 80vh;
+  background-color: $white;
+  color: $cool-gray;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  .sidebar {
+    position: relative;
+    width: 27%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-image: url(../src/assets/images/bg-sidebar-desktop.svg);
+    color: hsl(0, 0%, 100%);
+    padding: 50px 35px;
+    background-size: cover;
+    background-position: 33% 58%;
+    .sidebar__step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+
+      .sidebar__circle {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: $font-weight-bold;
+        margin-right: 10px;
+        border: 1px solid $white;
+        &.active {
+          background-color: $light-blue;
+          color: $purplish-blue;
+          border: 1px solid $light-blue;
+        }
+      }
+      .sidebar__text {
+        text-transform: uppercase;
+        font-size: 13px;
+        color: $cool-gray;
+        margin-bottom: 4px;
+        margin-top: 2px;
+        font-family: "Ubuntu-Bold";
+        font-weight: 700;
+      }
+      .sidebar__title {
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 2px;
+
+        font-size: 14px;
+        letter-spacing: 1.5px;
+      }
+    }
+  }
+  .wrapper {
+    width: 73%;
+  }
+  .box__content {
+    width: 80%;
+    margin: 80px auto;
+    .box__title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: $marine-blue;
+      margin-bottom: 20px;
+    }
+    .box__description {
+      font-size: 1.2rem;
+      color: $cool-gray;
+      line-height: 1.2;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+    .box__form__group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      .box__form__label {
+        font-size: 1.2rem;
+        color: $marine-blue;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+      .box__form__input {
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        border: 1px solid $light-gray;
+        padding: 0 10px;
+        font-size: 1.2rem;
+        color: $cool-gray;
+        font-weight: 500;
+        &::placeholder {
+          color: $light-gray;
+        }
+      }
+    }
+    .box__form__button {
+      //width: 100%;
+      //height: 50px;
+      float: right;
+      border-radius: 10px;
+      background-color: $marine-blue;
+      color: $white;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 15px 30px;
+      border: 1px solid $marine-blue;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: $pastel-blue;
+        border: 1px solid $pastel-blue;
+      }
+    }
+  }
 }
