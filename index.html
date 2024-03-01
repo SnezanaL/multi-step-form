@@ -59,14 +59,14 @@
       <!-- Sidebar end -->
 
       <!-- Step 1 start -->
-      <div class="wrapper">
-        <div class="box__content">
-          <h1 class="box__title">Personal info</h1>
-          <p class="box__description">
-            Please provide your name, email address, and phone number.
-          </p>
+      <div class="step">
+        <form action="#" id="regForm" class="box__form">
+          <div class="box__content step__1">
+            <h1 class="box__title">Personal info</h1>
+            <p class="box__description">
+              Please provide your name, email address, and phone number.
+            </p>
 
-          <form action="#" class="box__form">
             <div class="box__form__group">
               <label for="name" class="box__form__label">Name</label>
               <input
@@ -94,22 +94,100 @@
                 placeholder="e.g. +1 234 567 890"
               />
             </div>
-            <button class="box__form__button">Next Step</button>
-          </form>
-        </div>
+          </div>
+
+          <!-- Step 1 end -->
+
+          <!-- Step 2 start -->
+
+          <div class="box__content step__2">
+            <h1 class="box__title">Personal info</h1>
+            <p class="box__description">
+              Please provide your name, email address, and phone number.
+            </p>
+
+            <div class="plans">
+              <div class="card">
+                <div class="icon">
+                  <img src="./src/assets/images/icon-arcade.svg" alt="Arcade" />
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Arcade</h3>
+                  <p class="card__price">$90/yr</p>
+
+                  <p class="card__description">2 months free</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="icon">
+                  <img
+                    src="./src/assets/images/icon-advanced.svg"
+                    alt="Advanced"
+                  />
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Advanced</h3>
+                  <p class="card__price">$120/yr</p>
+
+                  <p class="card__description">2 months free</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="icon">
+                  <img src="./src/assets/images/icon-pro.svg" alt="Pro" />
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Pro</h3>
+                  <p class="card__price">$150/yr</p>
+
+                  <p class="card__description">2 months free</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 end -->
+
+          <!-- Step 3 start -->
+
+          <div class="box__content step__2">
+            <h1 class="box__title">Step 3</h1>
+            <p class="box__description">
+              Please provide your name, email address, and phone number.
+            </p>
+          </div>
+
+          <div style="overflow: auto">
+            <div style="float: right">
+              <button
+                type="button"
+                class="box__form__button"
+                id="prevBtn"
+                onclick="nextPrev(-1)"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                class="box__form__button"
+                id="nextBtn"
+                onclick="nextPrev(1)"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-
-    <!-- Step 1 end -->
-
-    <!-- Step 2 start -->
+    <!-- <script>
+      function nextPrev(n) {
+        console.log(n);
+      }
+    </script> -->
 
     Select your plan You have the option of monthly or yearly billing. Arcade
     $9/mo Advanced $12/mo Pro $15/mo Monthly Yearly Go Back Next Step
-
-    <!-- Step 2 end -->
-
-    <!-- Step 3 start -->
 
     <!-- Step 3 end -->
 
@@ -138,6 +216,6 @@
         >Frontend Mentor</a
       >. Coded by <a href="#">Your Name Here</a>.
     </div>
-    <script type="module" src="dist/main.js"></script>
+    <script type="" src="dist/index.js"></script>
   </body>
 </html>
