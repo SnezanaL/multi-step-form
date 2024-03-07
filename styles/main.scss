@@ -36,18 +36,17 @@ body {
       display: flex;
       align-items: center;
       margin-bottom: 30px;
-
       .sidebar__circle {
         width: 35px;
         height: 35px;
         border-radius: 50%;
-
         display: flex;
         justify-content: center;
         align-items: center;
         font-weight: $font-weight-bold;
         margin-right: 10px;
         border: 1px solid $white;
+        transition: all 0.3s ease;
         &.active {
           background-color: $light-blue;
           color: $purplish-blue;
@@ -74,7 +73,7 @@ body {
       }
     }
   }
-  .wrapper {
+  .step {
     width: 73%;
   }
   .box__content {
@@ -104,7 +103,6 @@ body {
         font-weight: 500;
       }
       .box__form__input {
-        width: 100%;
         height: 50px;
         border-radius: 5px;
         border: 1px solid $light-gray;
@@ -115,8 +113,25 @@ body {
         &::placeholder {
           color: $light-gray;
         }
+        &.invalid {
+          background-color: $white;
+          border: 2px solid red !important;
+        }
       }
     }
+  }
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: none;
+    float: right;
+  }
+  #email-error {
+    // color: red;
+    // font-size: 0.9rem;
+    // margin-top: 5px;
+    // display: none;
   }
   /* --------------------------
 ------ Personal info  ---------
@@ -137,6 +152,11 @@ body {
       transition: all 0.3s ease;
 
       &:hover {
+        border: 1px solid $marine-blue;
+        // background-color: $magnolia;
+        cursor: pointer;
+      }
+      &.selected {
         border: 1px solid $marine-blue;
         background-color: $magnolia;
       }
@@ -190,21 +210,369 @@ input.invalid {
   background-color: #ffdddd;
 }
 
-.box__form__button {
-  //width: 100%;
-  //height: 50px;
-  float: right;
+// .box__form__button {
+//   //width: 100%;
+//   //height: 50px;
+//   float: right;
+//   border-radius: 10px;
+//   background-color: $marine-blue;
+//   color: $white;
+//   font-size: 1.2rem;
+//   font-weight: 700;
+//   cursor: pointer;
+//   padding: 15px 30px;
+//   border: 1px solid $marine-blue;
+//   transition: background-color 0.3s ease;
+//   &:hover {
+//     background-color: $pastel-blue;
+//     border: 1px solid $pastel-blue;
+//   }
+// }
+.btns {
+  width: 80%;
+  margin: 80px auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  .box__form__button {
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 12px 22px;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    &:hover {
+      background-color: $pastel-blue;
+      border: 1px solid $pastel-blue;
+    }
+    &:disabled {
+      background-color: $light-gray;
+      color: $cool-gray;
+      border: 1px solid $light-gray;
+    }
+  }
+  .prevBtn {
+    color: $cool-gray;
+    background-color: transparent;
+    border: none;
+  }
+  .nextBtn {
+    margin-left: auto;
+    border: 1px solid $marine-blue;
+    background-color: $marine-blue;
+    color: $white;
+  }
+  .box__form__button:disabled {
+    background-color: -internal-light-dark(
+      rgba(239, 239, 239, 0.3),
+      rgba(19, 1, 1, 0.3)
+    );
+    color: -internal-light-dark(
+      rgba(16, 16, 16, 0.3),
+      rgba(255, 255, 255, 0.3)
+    );
+    border-color: -internal-light-dark(
+      rgba(118, 118, 118, 0.3),
+      rgba(195, 195, 195, 0.3)
+    );
+  }
+}
+
+.check__box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  background-color: $magnolia;
+  padding: 10px;
   border-radius: 10px;
-  background-color: $marine-blue;
-  color: $white;
+  .active {
+    color: $marine-blue;
+  }
+  span {
+    font-weight: 600;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 18px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 7px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  input:checked + .slider {
+    background-color: $marine-blue;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px $marine-blue;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(11px);
+    -ms-transform: translateX(11px);
+    transform: translateX(11px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+}
+
+/* --------------------------
+------ Step 3 - Pick add-ons  ---------
+----------------------------- */
+
+.add-on {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: 20px;
+  align-items: center;
+  border: 1px solid $light-gray;
+  border-radius: 10px;
+  padding: 12px 24px;
+
+  .group__add-on {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    .box__form__input {
+      // width: 30px;
+      // height: 30px;
+      // border-radius: 5px;
+      // border: 1px solid $light-gray;
+      // padding: 0 10px;
+      // font-size: 1.2rem;
+      // color: $cool-gray;
+      // font-weight: 500;
+      // margin-right: 10px;
+      // accent-color: $marine-blue;
+      // outline: 2px solid #c00;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      color: $marine-blue;
+      font-weight: 700;
+      margin: 0;
+      margin-bottom: 3px;
+    }
+    p {
+      font-size: 1rem;
+      color: $cool-gray;
+      margin: 0;
+    }
+  }
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+}
+.custom__checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid $light-gray;
   font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 15px 30px;
-  border: 1px solid $marine-blue;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: $pastel-blue;
-    border: 1px solid $pastel-blue;
+  color: $cool-gray;
+  font-weight: 500;
+  margin-right: 10px;
+  accent-color: $marine-blue;
+  position: relative;
+  label {
+    display: block;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 3;
+    border-radius: 5px;
+    display: block;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    top: 0;
+  }
+}
+.custom__checkbox input[type="checkbox"]:checked + label {
+  background-color: $purplish-blue;
+  color: $white;
+  border: 1px solid $purplish-blue;
+  position: absolute;
+  &:before {
+    content: url("../src/assets/images/icon-checkmark.svg");
+    font-size: 1.2rem;
+    color: $white;
+    top: -3px;
+    left: 4px;
+    position: relative;
+  }
+}
+
+// $checkbox-border-color: #8b8c89;
+// $checkbox-checked-color: #274c77;
+// $checkbox-hover-color: #a3cef1;
+// $checkbox-disabled-bg-color: #d9d9d9;
+// input[type="checkbox"] {
+//   box-sizing: border-box;
+//   width: 20px;
+//   height: 20px;
+//   margin: 6px;
+//   padding: 0;
+//   border: 2px solid $checkbox-border-color;
+//   appearance: none;
+//   background-color: transparent;
+//   outline: none;
+//   transition: outline 0.1s;
+//   accent-color: blue;
+
+//   &:checked {
+//     content: "1";
+//     background-size: cover;
+//     padding: 2px;
+//     border-color: $checkbox-checked-color;
+//     color: red;
+//     //background: green;
+//     //background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: #{$checkbox-checked-color}" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
+//   }
+
+//   &:disabled {
+//     background-color: $checkbox-disabled-bg-color;
+
+//     &:checked {
+//       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: #{$checkbox-border-color}" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
+//     }
+//   }
+
+//   @media (hover: hover) {
+//     &:not(:disabled):hover {
+//       background-color: $checkbox-hover-color;
+//       outline: 6px solid $checkbox-hover-color;
+//       transform: scale(1.05);
+//     }
+//   }
+
+//   &:focus-visible {
+//     outline: 6px solid $checkbox-hover-color;
+//     transform: scale(1.05);
+//   }
+
+//   @media (prefers-reduced-motion: reduce) {
+//     transition: none;
+//   }
+// }
+
+/* ------------------------------------
+------ Step 4 - Finishing up  ---------
+--------------------------------------- */
+
+.summary__group {
+  background-color: $alabaster;
+  border-radius: 10px;
+  padding: 20px;
+  .summary__step1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $light-gray;
+    .summary__content {
+      display: flex;
+      flex-direction: column;
+
+      .summary__title {
+        font-size: 0.9rem;
+        color: $marine-blue;
+        font-weight: 600;
+        margin-bottom: 0px;
+      }
+      .summary__description {
+        font-size: 0.8rem;
+        a {
+          color: $cool-gray;
+          font-weight: 700;
+          text-decoration: underline;
+          &:hover {
+            color: $light-purple;
+          }
+        }
+      }
+    }
+    .summary__price {
+      font-size: 0.9rem;
+      color: $marine-blue;
+      font-weight: 800;
+      margin-bottom: 0px;
+    }
+  }
+  .summary__step2 {
+    padding-top: 10px;
+    .summary__step2__group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary__price {
+      font-size: 0.9rem;
+      color: $marine-blue;
+      font-weight: 700;
+      margin-bottom: 0px;
+    }
+  }
+}
+.summary__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  .summary__title {
+    color: $marine-blue;
+    margin: 0;
+  }
+  .summary__price {
+    color: $purple;
+    font-weight: 800;
+    margin-bottom: 0px;
+    margin: 0;
   }
 }

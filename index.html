@@ -68,29 +68,46 @@
             </p>
 
             <div class="box__form__group">
-              <label for="name" class="box__form__label">Name</label>
+              <label for="name" class="box__form__label"
+                >Name
+                <span id="name-error" class="error">
+                  This field is required
+                </span></label
+              >
               <input
                 type="text"
                 id="name"
                 class="box__form__input"
+                onblur="validateInput(this)"
                 placeholder="Stephen King"
               />
             </div>
             <div class="box__form__group">
-              <label for="email" class="box__form__label">Email Address</label>
+              <label for="email" class="box__form__label">
+                Email Address
+                <span id="email-error" class="error"></span>
+              </label>
+
               <input
                 type="email"
                 id="email"
                 class="box__form__input"
+                onblur="validateEmail(event.target.value)"
                 placeholder="e.g. stephenking@lorem.com"
               />
             </div>
             <div class="box__form__group">
-              <label for="phone" class="box__form__label">Phone Number</label>
+              <label for="phone" class="box__form__label">
+                Phone Number
+                <span id="phone-error" class="error">
+                  This field is required
+                </span>
+              </label>
               <input
                 type="tel"
                 id="phone"
                 class="box__form__input"
+                onblur="validateInput(this)"
                 placeholder="e.g. +1 234 567 890"
               />
             </div>
@@ -101,13 +118,13 @@
           <!-- Step 2 start -->
 
           <div class="box__content step__2">
-            <h1 class="box__title">Personal info</h1>
+            <h1 class="box__title">Select your plan</h1>
             <p class="box__description">
-              Please provide your name, email address, and phone number.
+              You have the option of monthly or yearly billing.
             </p>
 
             <div class="plans">
-              <div class="card">
+              <div class="card selected" id="arcade">
                 <div class="icon">
                   <img src="./src/assets/images/icon-arcade.svg" alt="Arcade" />
                 </div>
@@ -118,7 +135,7 @@
                   <p class="card__description">2 months free</p>
                 </div>
               </div>
-              <div class="card">
+              <div class="card" id="advanced">
                 <div class="icon">
                   <img
                     src="./src/assets/images/icon-advanced.svg"
@@ -132,7 +149,7 @@
                   <p class="card__description">2 months free</p>
                 </div>
               </div>
-              <div class="card">
+              <div class="card" id="pro">
                 <div class="icon">
                   <img src="./src/assets/images/icon-pro.svg" alt="Pro" />
                 </div>
@@ -144,38 +161,190 @@
                 </div>
               </div>
             </div>
+            <div class="check__box">
+              <span id="monthly">Monthly</span>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="select__plan"
+                  class="box__form__input"
+                  checked
+                />
+                <span class="slider round"></span>
+              </label>
+              <span id="yearly" class="active">Yearly</span>
+            </div>
           </div>
 
           <!-- Step 2 end -->
 
           <!-- Step 3 start -->
 
+          <!-- TODO:  Select your plan You have the option of monthly or yearly billing. Arcade
+          $9/mo Advanced $12/mo Pro $15/mo Monthly Yearly Go Back Next Step
+       -->
           <div class="box__content step__2">
-            <h1 class="box__title">Step 3</h1>
+            <h1 class="box__title">Pick add-ons</h1>
             <p class="box__description">
-              Please provide your name, email address, and phone number.
+              Add-ons help enhance your gaming experience.
             </p>
+            <!-- Pick add-ons
+            Add-ons help enhance your gaming experience.
+          
+            Online service
+            Access to multiplayer games
+            +$1/mo
+          
+            Larger storage
+            Extra 1TB of cloud save
+            +$2/mo
+          
+            Customizable Profile
+            Custom theme on your profile
+            +$2/mo -->
+            <div class="add-ons">
+              <div class="add-on">
+                <div class="group__add-on">
+                  <div class="custom__checkbox">
+                    <input
+                      type="checkbox"
+                      id="online-service"
+                      class="box__form__input"
+                    />
+                    <label class="addon-label" for="online-service"></label>
+                  </div>
+
+                  <div class="box__form__label">
+                    <h4>Online service</h4>
+                    <p>Access to multiplayer games</p>
+                  </div>
+                </div>
+                <p class="add-on__price">+$1/mo</p>
+              </div>
+              <div class="add-on">
+                <div class="group__add-on">
+                  <div class="custom__checkbox">
+                    <input
+                      type="checkbox"
+                      id="larger-storage"
+                      class="box__form__input"
+                    />
+                    <label class="addon-label" for="larger-storage"></label>
+                  </div>
+
+                  <div class="box__form__label">
+                    <h4>Larger storage</h4>
+                    <p>Extra 1TB of cloud save</p>
+                  </div>
+                </div>
+                <p class="add-on__price">+$2/mo</p>
+              </div>
+              <div class="add-on">
+                <div class="group__add-on">
+                  <div class="custom__checkbox">
+                    <input
+                      type="checkbox"
+                      id="customizable-profile"
+                      class="box__form__input"
+                    />
+                    <label
+                      class="addon-label"
+                      for="customizable-profile"
+                    ></label>
+                  </div>
+
+                  <label for="customizable-profile" class="box__form__label">
+                    <h4>Customizable Profile</h4>
+                    <p>Custom theme on your profile</p>
+                  </label>
+                </div>
+                <p class="add-on__price">+$2/mo</p>
+              </div>
+            </div>
+          </div>
+          <!-- Step 3 end -->
+
+          <!-- Step 4 start -->
+
+          <!-- TODO: Finishing up Double-check everything looks OK before confirming.
+       -->
+          <!-- TODO: Dynamically add subscription and add-on selections here -->
+
+          <!-- TODO: Total (per month/year) Go Back Confirm
+
+       -->
+          <div class="box__content step__4">
+            <h1 class="box__title">Finishing up</h1>
+            <p class="box__description">
+              Double-check everything looks OK before confirming.
+            </p>
+
+            <div class="summary">
+              <div class="summary__group">
+                <div class="summary__step1">
+                  <div class="summary__content">
+                    <h4 class="summary__title">Arcade (Monthly)</h4>
+                    <p class="summary__description"><a href="">Change</a></p>
+                  </div>
+
+                  <h4 class="summary__price">$9/mo</h4>
+                </div>
+
+                <div class="summary__step2">
+                  <div class="summary__step2__group">
+                    <p class="summary__title">Online service</p>
+                    <p class="summary__price">+$1/mo</p>
+                  </div>
+                  <div class="summary__step2__group">
+                    <p class="summary__title">Larger storage</p>
+                    <p class="summary__price">+$2/mo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="summary__total">
+                <p class="summary__title">Total (per month)</p>
+                <p class="summary__price">+$12/mo</p>
+              </div>
+            </div>
           </div>
 
-          <div style="overflow: auto">
-            <div style="float: right">
-              <button
-                type="button"
-                class="box__form__button"
-                id="prevBtn"
-                onclick="nextPrev(-1)"
-              >
-                Previous
-              </button>
-              <button
-                type="button"
-                class="box__form__button"
-                id="nextBtn"
-                onclick="nextPrev(1)"
-              >
-                Next
-              </button>
-            </div>
+          <!-- Step 4 end -->
+
+          <!-- Step 5 start -->
+
+          <!-- TODO: Thank you! Thanks for confirming your subscription! We hope you have fun
+          using our platform. If you ever need support, please feel free to email us
+          at support@loremgaming.com.
+
+       -->
+          <div class="box__content step__5">
+            <h1 class="box__title">Thank you!</h1>
+            <p class="box__description">
+              Thanks for confirming your subscription! We hope you have fun
+              using our platform. If you ever need support, please feel free to
+              email us at
+              <a href="mailto:#" class="box__link"> </a>
+            </p>
+          </div>
+          <!-- Step 5 end -->
+
+          <div style="overflow: auto" class="btns">
+            <button
+              type="button"
+              class="box__form__button prevBtn"
+              id="prevBtn"
+              onclick="nextPrev(-1)"
+            >
+              Go Back
+            </button>
+            <button
+              type="button"
+              class="box__form__button nextBtn"
+              id="nextBtn"
+              onclick="nextPrev(1)"
+            >
+              Next Step
+            </button>
           </div>
         </form>
       </div>
@@ -186,28 +355,6 @@
       }
     </script> -->
 
-    Select your plan You have the option of monthly or yearly billing. Arcade
-    $9/mo Advanced $12/mo Pro $15/mo Monthly Yearly Go Back Next Step
-
-    <!-- Step 3 end -->
-
-    <!-- Step 4 start -->
-
-    Finishing up Double-check everything looks OK before confirming.
-
-    <!-- Dynamically add subscription and add-on selections here -->
-
-    Total (per month/year) Go Back Confirm
-
-    <!-- Step 4 end -->
-
-    <!-- Step 5 start -->
-
-    Thank you! Thanks for confirming your subscription! We hope you have fun
-    using our platform. If you ever need support, please feel free to email us
-    at support@loremgaming.com.
-
-    <!-- Step 5 end -->
     <!-- </div> -->
 
     <div class="attribution">
@@ -216,6 +363,9 @@
         >Frontend Mentor</a
       >. Coded by <a href="#">Your Name Here</a>.
     </div>
-    <script type="" src="dist/index.js"></script>
+
+    <script src="dist/index.js"></script>
+
+    <!-- <script  src="dist/index.js"></script> -->
   </body>
 </html>
