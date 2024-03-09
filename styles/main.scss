@@ -520,13 +520,13 @@ input[type="checkbox"] {
       display: flex;
       flex-direction: column;
 
-      .summary__title {
+      #summary__title {
         font-size: 0.9rem;
         color: $marine-blue;
         font-weight: 600;
         margin-bottom: 0px;
       }
-      .summary__description {
+      #summary__description {
         font-size: 0.8rem;
         a {
           color: $cool-gray;
@@ -545,7 +545,7 @@ input[type="checkbox"] {
       margin-bottom: 0px;
     }
   }
-  .summary__step2 {
+  #summary__step2 {
     padding-top: 10px;
     .summary__step2__group {
       display: flex;

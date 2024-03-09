@@ -69,11 +69,8 @@
 
             <div class="box__form__group">
               <label for="name" class="box__form__label"
-                >Name
-                <span id="name-error" class="error">
-                  This field is required
-                </span></label
-              >
+                >Name <span id="name-error" class="error"> </span
+              ></label>
               <input
                 type="text"
                 id="name"
@@ -99,9 +96,7 @@
             <div class="box__form__group">
               <label for="phone" class="box__form__label">
                 Phone Number
-                <span id="phone-error" class="error">
-                  This field is required
-                </span>
+                <span id="phone-error" class="error"> </span>
               </label>
               <input
                 type="tel"
@@ -208,10 +203,10 @@
                   <div class="custom__checkbox">
                     <input
                       type="checkbox"
-                      id="online-service"
+                      id="onlineService"
                       class="box__form__input"
                     />
-                    <label class="addon-label" for="online-service"></label>
+                    <label class="addon-label" for="onlineService"></label>
                   </div>
 
                   <div class="box__form__label">
@@ -226,10 +221,10 @@
                   <div class="custom__checkbox">
                     <input
                       type="checkbox"
-                      id="larger-storage"
+                      id="largerStorage"
                       class="box__form__input"
                     />
-                    <label class="addon-label" for="larger-storage"></label>
+                    <label class="addon-label" for="largerStorage"></label>
                   </div>
 
                   <div class="box__form__label">
@@ -244,19 +239,19 @@
                   <div class="custom__checkbox">
                     <input
                       type="checkbox"
-                      id="customizable-profile"
+                      id="customizableProfile"
                       class="box__form__input"
                     />
                     <label
                       class="addon-label"
-                      for="customizable-profile"
+                      for="customizableProfile"
                     ></label>
                   </div>
 
-                  <label for="customizable-profile" class="box__form__label">
+                  <div class="box__form__label">
                     <h4>Customizable Profile</h4>
                     <p>Custom theme on your profile</p>
-                  </label>
+                  </div>
                 </div>
                 <p class="add-on__price">+$2/mo</p>
               </div>
@@ -283,27 +278,27 @@
               <div class="summary__group">
                 <div class="summary__step1">
                   <div class="summary__content">
-                    <h4 class="summary__title">Arcade (Monthly)</h4>
-                    <p class="summary__description"><a href="">Change</a></p>
+                    <h4 id="summary__title">Arcade (Monthly)</h4>
+                    <p id="summary__description"><a href="">Change</a></p>
                   </div>
 
-                  <h4 class="summary__price">$9/mo</h4>
+                  <h4 id="summary__price">$9/mo</h4>
                 </div>
 
-                <div class="summary__step2">
-                  <div class="summary__step2__group">
+                <div id="summary__step2">
+                  <!-- <div class="summary__step2__group">
                     <p class="summary__title">Online service</p>
                     <p class="summary__price">+$1/mo</p>
                   </div>
                   <div class="summary__step2__group">
                     <p class="summary__title">Larger storage</p>
                     <p class="summary__price">+$2/mo</p>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="summary__total">
-                <p class="summary__title">Total (per month)</p>
-                <p class="summary__price">+$12/mo</p>
+                <p id="totalTitle" class="summary__title">Total (per month)</p>
+                <p id="totalSum" class="summary__price">+$12/mo</p>
               </div>
             </div>
           </div>

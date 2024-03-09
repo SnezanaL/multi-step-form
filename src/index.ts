@@ -16,31 +16,97 @@ const yearly = document.getElementById("yearly") as HTMLElement;
 const monthly = document.getElementById("monthly") as HTMLElement;
 
 const regForm = document.getElementById("regForm") as HTMLFormElement;
-const formData = new FormData();
+
+const step2summary = document.getElementById("summary__step2") as HTMLElement;
+
+interface PriceLookup {
+  monthly: {
+    text: string;
+    arcade: number;
+    advanced: number;
+    pro: number;
+  };
+  yearly: {
+    text: string;
+    arcade: number;
+    advanced: number;
+    pro: number;
+  };
+}
+
+const PriceLookup: PriceLookup = {
+  monthly: {
+    text: "mo",
+    arcade: 9,
+    advanced: 12,
+    pro: 15,
+  },
+  yearly: {
+    text: "yr",
+    arcade: 90,
+    advanced: 120,
+    pro: 150,
+  },
+};
+interface Addons {
+  title: {
+    onlineService: string;
+    customizableProfile: string;
+    largerStorage: string;
+  };
+  monthly: {
+    onlineService: number;
+    customizableProfile: number;
+    largerStorage: number;
+  };
+  yearly: {
+    onlineService: number;
+    customizableProfile: number;
+    largerStorage: number;
+  };
+}
+const Addons: Addons = {
+  title: {
+    onlineService: "Online Service",
+    customizableProfile: "Customizable Profile",
+    largerStorage: "Larger Storage",
+  },
+  monthly: {
+    onlineService: 1,
+    customizableProfile: 2,
+    largerStorage: 2,
+  },
+  yearly: {
+    onlineService: 10,
+    customizableProfile: 20,
+    largerStorage: 20,
+  },
+};
+
 let formValues = {
   name: "",
   email: "",
   phone: "",
   option: "",
   plan: "",
-  addons: {
-    onlineService: false,
-    customizableProfile: false,
-    largerStorage: false,
-  },
+  addons: [] as string[],
 };
 
+let planPrice = 0;
+
 showTab(currentStep); // Display the current tab
-// console.log("🚀 ~ currentStep:", currentStep);
+
+function sumTotal(planPrice: number, addons: number) {
+  if (addons === undefined) {
+    addons = 0;
+  }
+  return planPrice + addons;
+}
 
 function showTab(n: number) {
-  // This function will display the specified tab of the form...
   boxContent[n].style.display = "block";
-  //... and fix the Previous/Next buttons:
-
   if (n == 0) {
     prevButton.style.display = "none";
-
     nextButton.addEventListener("click", (e) => {
       formValues = {
         name: inputName.value,
@@ -48,52 +114,146 @@ function showTab(n: number) {
         phone: inputPhone.value,
         option: "",
         plan: "",
-        addons: {
-          onlineService: false,
-          customizableProfile: false,
-          largerStorage: false,
-        },
+        addons: [] as string[],
       };
-      console.log("🚀 ~ nextButton.addEventListener ~ formValues:", formValues);
-      // formData.append("name", inputName.value);
-      // formData.append("email", inputEmail.value);
-      // formData.append("phone", inputPhone.value);
-      // console.log("🚀 ~ submitForm ~ formData:", formData.values());
-      // for (const value of formData.values()) {
-      //   console.log(value);
-      // }
     });
   } else {
     prevButton.style.display = "inline";
   }
   if (n == 1) {
     nextButton.addEventListener("click", (e) => {
-      e.preventDefault();
+      formValues.option = "";
+      formValues.plan = "";
       const cardSelected = document.getElementsByClassName("selected");
-      console.log("🚀 ~ cardSelected:", cardSelected);
       formValues.option = cardSelected[0].id;
       formValues.plan = checkBox.checked ? "yearly" : "monthly";
-      console.log("🚀 ~ nextButton.addEventListener ~ formValues:", formValues);
+      formValues = {
+        ...formValues,
+        option: cardSelected[0].id,
+        plan: checkBox.checked ? "yearly" : "monthly",
+      };
     });
   }
+
   if (n == 2) {
+    const addOnlineService = document.getElementById(
+      "onlineService"
+    ) as HTMLInputElement;
+
+    const addCustomizableProfile = document.getElementById(
+      "customizableProfile"
+    ) as HTMLInputElement;
+    const addLargerStorage = document.getElementById(
+      "largerStorage"
+    ) as HTMLInputElement;
+    let formAddons = [] as any;
+
     nextButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      formValues.addons.onlineService = addOnlineService.checked;
-      formValues.addons.customizableProfile = addCustomizableProfile.checked;
-      formValues.addons.largerStorage = addLargerStorage.checked;
-      console.log("🚀 ~ nextButton.addEventListener ~ formValues:", formValues);
+      formAddons = [];
+      if (addOnlineService.checked) {
+        formAddons.push(addOnlineService.id);
+      }
+      if (addCustomizableProfile.checked) {
+        formAddons.push(addCustomizableProfile.id);
+      }
+      if (addLargerStorage.checked) {
+        formAddons.push(addLargerStorage.id);
+      }
+      console.log("🚀 ~ showTab ~ addOnlineService:", addOnlineService);
+      console.log("🚀 ~ showTab ~ formAddons:", formAddons);
+      formValues = {
+        ...formValues,
+        addons: [formAddons],
+      };
+
+      const summary = document.getElementsByClassName(
+        "summary"
+      ) as HTMLCollectionOf<HTMLElement>;
+
+      const summaryTitle = document.getElementById(
+        "summary__title"
+      ) as HTMLElement;
+      const summaryPlan = document.getElementById(
+        "summary__plan"
+      ) as HTMLElement;
+      const summaryPrice = document.getElementById(
+        "summary__price"
+      ) as HTMLElement;
+      const totalTitle = document.getElementById("totalTitle") as HTMLElement;
+      const totalSum = document.getElementById("totalSum") as HTMLElement;
+      const selectedOption = formValues.option as "arcade" | "advanced" | "pro";
+
+      const selectedPlan = formValues.plan as "monthly" | "yearly";
+      const priceText: string = PriceLookup[selectedPlan].text;
+      const price = PriceLookup[selectedPlan][selectedOption];
+      if (
+        PriceLookup[selectedPlan] &&
+        PriceLookup[selectedPlan][selectedOption] !== undefined
+      ) {
+        planPrice = PriceLookup[selectedPlan][selectedOption];
+      } else {
+        // Handle invalid plan or option value
+        console.error("Invalid plan or option value");
+      }
+
+      summaryTitle.innerHTML = `${
+        selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1)
+      } (${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)})`; // Capitalize the first letter
+      summaryPrice.innerHTML = `+${planPrice}/${priceText}`;
+
+      let template = "";
+      let step2summaryArray = [];
+      let addonPrices = 0;
+      let total = 0;
+      let noAddons = "";
+
+      console.log(
+        "🚀 ~ nextButton.addEventListener ~ formValues.addons:",
+        formValues.addons
+      );
+
+      for (const item of formValues.addons) {
+        if (formValues.addons[0].length === 0) {
+          noAddons = `
+          <div class="summary__step2__group"> 
+          <p class="summary__title">No Addons</p>
+          <p class="summary__price">+$0/${priceText}</p>
+          </div>`;
+        } else {
+          const itemTitle = (Addons.title as { [key: string]: string })[
+            item
+          ] as "onlineService" | "customizableProfile" | "largerStorage";
+
+          const price = (Addons[selectedPlan] as { [key: string]: number })[
+            item
+          ];
+          template = ` <div class="summary__step2__group">
+          <p class="summary__title">${itemTitle}</p>
+          <p class="summary__price">+${price}/${priceText}</p>
+         
+          </div>`;
+          addonPrices += price;
+          step2summaryArray.push(template);
+        }
+
+        console.log("🚀 ~ nextButton.addEventListener ~ noAddons:", noAddons);
+        step2summary.innerHTML =
+          formValues.addons[0].length === 0
+            ? noAddons
+            : step2summaryArray.join("");
+        console.log(
+          "🚀 ~ nextButton.addEventListener ~ step2summary.innerHTML:",
+          step2summary.innerHTML
+        );
+        total = sumTotal(planPrice, addonPrices);
+        totalTitle.innerHTML = `Total (per ${selectedPlan})`;
+        totalSum.innerHTML = ` +$${total}/${priceText}`;
+      }
     });
   }
+
   if (n == boxContent.length - 2) {
     nextButton.innerHTML = "Submit";
-    nextButton.id = "submitBtn";
-    submitButton = document.getElementById("submitBtn") as HTMLButtonElement; // Assert the type to HTMLButtonElement
-    console.log("🚀 ~ showTab ~ submitButton:", submitButton);
-    submitButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      submitForm();
-    });
   } else {
     nextButton.innerHTML = "Next Step";
   }
@@ -101,16 +261,31 @@ function showTab(n: number) {
     prevButton.style.display = "none";
     nextButton.style.display = "none";
   }
-  //... and run a function that will display the correct step indicator:
   fixStepIndicator(n);
 }
 
-function fixStepIndicator(n: number) {
+function nextPrev(n: number) {
+  if (n == 1 && !validateForm()) return false;
+  boxContent[currentStep].style.display = "none";
+  currentStep = currentStep + n;
+  if (currentStep >= boxContent.length) {
+    //regForm.submit();
+    return false;
+  }
+  showTab(currentStep);
+}
+
+async function fixStepIndicator(n: number) {
+  // const step = await document.getElementsByClassName("step");
+  // for (let i = 0; i < step.length; i++) {
+  //   step[i].className = step[i].className.replace(" active", "");
+  // }
+  // step[n].className += " active";
   // This function removes the "active" class of all steps...
   var i,
-    stepCircle = document.getElementsByClassName(
+    stepCircle = (await document.getElementsByClassName(
       "sidebar__circle"
-    ) as HTMLCollectionOf<HTMLElement>;
+    )) as HTMLCollectionOf<HTMLElement>;
   for (i = 0; i < stepCircle.length; i++) {
     stepCircle[i].className = stepCircle[i].className.replace(" active", "");
   }
@@ -122,48 +297,14 @@ function fixStepIndicator(n: number) {
   }
 }
 
-function nextPrev(n: number) {
-  // console.log("showStep", n);
-
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
-  // Hide the current tab:
-  boxContent[currentStep].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentStep = currentStep + n;
-  // console.log("🚀 ~ nextPrev ~ currentStep:", currentStep);
-  // if you have reached the end of the form... :
-  console.log("🚀 ~ nextPrev ~ boxContent.length:", boxContent.length);
-  console.log("🚀 ~ nextPrev ~ currentStep:", currentStep);
-
-  if (currentStep >= boxContent.length - 1) {
-    //...the form gets submitted:
-    // regForm.submit();
-    // console.log("🚀 ~ nextPrev ~ regForm.submit();:", regForm.submit());
-    // return false;
-    //regForm.submit();
-
-    return false;
-  }
-
-  // Otherwise, display the correct tab:
-  showTab(currentStep);
-}
-/* ----------------------------------- */
-// #### Validate form Step 1 ########
-/* ----------------------------------- */
-
 let input = boxContent[currentStep].getElementsByTagName("input");
-
-// Validates email address
 function validateEmail(e: string) {
-  // console.log("🚀 ~ validateEmail ~ email:", e);
   const email = document.getElementById("email") as HTMLInputElement;
   const errorEmail = document.getElementById("email-error") as HTMLElement;
 
   let message = "";
   const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-  // console.log("🚀 ~ validateEmail ~ reg.test(e):", reg.test(e));
+
   if (e === "") {
     message = "Email is required!";
     errorEmail.style.display = "inline";
@@ -189,8 +330,11 @@ function validateEmail(e: string) {
 }
 
 nextButton.disabled = true;
-const validateInput = (val: any) => {
-  const error = document.getElementById(val.id + "-error") as HTMLElement;
+const validateInput = async (val: any) => {
+  const error = (await document.getElementById(
+    val.id + "-error"
+  )) as HTMLElement;
+
   let message = "";
   if (val.value === "") {
     message = "This field is required";
@@ -208,65 +352,101 @@ const validateInput = (val: any) => {
     nextButton.disabled = true;
     return false;
   }
-  error.style.display = "none";
-  val.classList.remove("invalid");
-  message = "";
-  error.innerHTML = message;
+  if (error) {
+    error.style.display = "none";
+    val.classList.remove("invalid");
+    message = "";
+    error.innerHTML = message;
+  }
+
   nextButton.disabled = false;
   return true;
 };
-// Validate form
-function validateForm() {
+
+function validatePlan() {
+  const cardSelected = document.getElementsByClassName("selected");
+  let message = "";
+  if (cardSelected === undefined || cardSelected.length === 0) {
+    message = "Please select a plan";
+    nextButton.disabled = true;
+    return false;
+  }
+  message = "";
+  nextButton.disabled = false;
+  return true;
+}
+
+async function validateForm() {
+  let valid = true;
   if (currentStep === 0) {
-    let valid = validateInput(input[0]);
-    valid = validateInput(input[2]);
-    valid = validateEmail(input[1].value);
-    // console.log("🚀 ~ validateForm ~ valid0:", valid);
-    return valid;
+    valid = await validateInput(inputName.value);
+    valid = await validateEmail(inputEmail.value);
+    valid = await validateInput(inputPhone.value);
+    if (valid) {
+      formValues.name = inputName.value;
+      formValues.email = inputEmail.value;
+      formValues.phone = inputPhone.value;
+    }
+  } else if (currentStep === 1) {
+    valid = validatePlan();
+    if (valid) {
+      const cardSelected = document.getElementsByClassName("selected");
+
+      formValues.option = await cardSelected[0].id;
+      formValues.plan = (await checkBox.checked) ? "yearly" : "monthly";
+    }
+  } else if (currentStep === 2) {
+    const addOnlineService = document.getElementById(
+      "onlineService"
+    ) as HTMLInputElement;
+    const addCustomizableProfile = document.getElementById(
+      "customizableProfile"
+    ) as HTMLInputElement;
+    const addLargerStorage = document.getElementById(
+      "largerStorage"
+    ) as HTMLInputElement;
+
+    if (addOnlineService.checked) {
+      formValues.addons.push(addOnlineService.id);
+    }
+    if (addCustomizableProfile.checked) {
+      formValues.addons.push(addCustomizableProfile.id);
+    }
+    if (addLargerStorage.checked) {
+      formValues.addons.push(addLargerStorage.id);
+    }
+  } else if (currentStep === 3) {
+    const summary = (await document.getElementsByClassName(
+      "summary"
+    )) as HTMLCollectionOf<HTMLElement>;
   }
-  if (currentStep === 1) {
-    //let valid = validateInput(input[3]);
-    // valid = validateInput(input[4]);
-    // valid = validateInput(input[5]);
-    // console.log("🚀 ~ validateForm ~ valid1:");
-    nextButton.disabled = false;
-    return true;
-  } else {
-    nextButton.disabled = false;
-    return true;
-  }
+  return valid;
 }
 
 /* ----------------------------------- */
 // ####  Step 2 ########
 /* ----------------------------------- */
 const card = document.getElementsByClassName("card");
-console.log("🚀 ~ card:", card);
+
 let current = document.getElementsByClassName("selected");
 for (let i = 0; i < card.length; i++) {
   card[i].addEventListener("click", function () {
-    console.log("🚀 ~ card[i].addEventListener ~ i:", i);
-
     if (current.length > 0) {
       current[0].className = current[0].className.replace(" selected", "");
     }
     card[i].className += " selected";
   });
 }
-console.log("🚀 ~ current:", current);
-
-console.log("🚀 ~ checkBox:", checkBox);
 
 const cardPrice = document.getElementsByClassName("card__price");
 const cardDescription = document.getElementsByClassName("card__description");
 if (checkBox) {
   checkBox.addEventListener("click", function () {
-    console.log("🚀 ~ checkBox.addEventListener ~ checkBox:", checkBox);
     if (checkBox.checked) {
       yearly.classList.add("active");
       monthly.classList.remove("active");
       cardPrice[0].innerHTML = "$90/yr";
-      console.log("🚀 ~ cardPrice[0].innerHTML:", cardPrice[0].innerHTML);
+
       cardPrice[1].innerHTML = "$120/yr";
       cardPrice[2].innerHTML = "$150/yr";
       cardDescription[0].innerHTML = "2 months free";
@@ -286,96 +466,5 @@ if (checkBox) {
 }
 
 /* ----------------------------------- */
-// #### Validate form Step 3 ########
+// #### Count TOTAL  ########
 /* ----------------------------------- */
-
-// const addOn = document.getElementsByClassName("add-on");
-// const addOnTitle = document.getElementsByClassName("add-on__title");
-// const addOnPrice = document.getElementsByClassName("add-on__price");
-// const addOnLabel = document.getElementsByClassName("addon-label");
-const addOnlineService = document.getElementById(
-  "online-service"
-) as HTMLInputElement;
-const addCustomizableProfile = document.getElementById(
-  "customizable-profile"
-) as HTMLInputElement;
-const addLargerStorage = document.getElementById(
-  "larger-storage"
-) as HTMLInputElement;
-// addOnlineService.addEventListener("change", function () {
-//   console.log("🚀 ~ addOnlineService.checked:", addOnlineService.checked);
-//   if (addOnlineService.checked) {
-//     formValues.addons.onlineService = true;
-//   } else {
-//     formValues.addons.onlineService = false;
-//   }
-// });
-// addCustomizableProfile.addEventListener("change", function () {
-//   console.log(
-//     "🚀 ~ addCustomizableProfile.checked:",
-//     addCustomizableProfile.checked
-//   );
-//   if (addCustomizableProfile.checked) {
-//     formValues.addons.customizableProfile = true;
-//   } else {
-//     formValues.addons.customizableProfile = false;
-//   }
-// });
-// addLargerStorage.addEventListener("change", function () {
-//   console.log("🚀 ~ addLargerStorage.checked:", addLargerStorage.checked);
-//   if (addLargerStorage.checked) {
-//     formValues.addons.largerStorage = true;
-//   } else {
-//     formValues.addons.largerStorage = false;
-//   }
-// });
-
-// console.log("🚀 ~ formValues:", formValues);
-// for (let i = 0; i < addOn.length; i++) {
-//   // const hasBefore = (selector: any) => {
-//   //   const el = document.getElementsByClassName(selector)[i] as HTMLElement;
-//   //   return el;
-//   // };
-//   // addOnInput[i].addEventListener("change", function () {
-//   //   console.log("🚀 ~ addOn[i].addEventListener ~ i:", addOnInput[i]);
-//   //   // if (addOnInput[i]. === true) {
-//   //   //   console.log(
-//   //   //     "🚀 ~ addOn[i].addEventListener ~ addOnInput[i].checked:",
-//   //   //     addOnInput[i].checked
-//   //   //   );
-//   //   //   // addOnInput[i].checked = false;
-//   //   //   // addOn[i].classList.remove("selected");
-//   //   // }
-//   //   // if (addOn[i].classList.contains("selected")) {
-//   //   //   addOn[i].classList.remove("selected");
-//   //   // } else {
-//   //   //   addOn[i].classList.add("selected");
-//   //   // }
-//   //   //addOn[i].classList.toggle("selected");
-//   // });
-// }
-
-/* ----------------------------------- */
-// #### Validate form Step 4 ########
-/* ----------------------------------- */
-
-/* ----------------------------------- */
-// #### Validate form Step 5 ########
-/* ----------------------------------- */
-
-/* ----------------------------------- */
-// #### Collect data ########
-/* ----------------------------------- */
-
-// console.log("🚀 ~ currentStep:", currentStep);
-// console.log("🚀 ~ submitButton:", submitButton);
-
-// submitButton.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   const formData = new FormData(regForm);
-//   console.log("🚀 ~ formData:", formData);
-// });
-function submitForm() {
-  console.log("🚀 ~ formData:", formData);
-  return false;
-}
