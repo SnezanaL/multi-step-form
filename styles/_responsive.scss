@@ -1,0 +1,126 @@
+@import "variables";
+
+// Mobile first media query
+$mobile: 375px;
+$tablet: 768px;
+$desktop: 1024px;
+$large: 1200px;
+$xlarge: 1440px;
+$xxlarge: 1600px;
+
+@media only screen and (max-width: 581px) {
+  body {
+    font-family: 14px;
+  }
+  .sidebar {
+    display: none;
+  }
+  .mobile-header {
+    display: flex;
+    background-image: url(../src/assets/images/bg-sidebar-mobile.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 140px;
+    justify-content: center;
+    padding-top: 50px;
+    .header__step {
+      display: flex;
+
+      .header__circle {
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: $font-weight-bold;
+        margin-right: 10px;
+        border: 1px solid $white;
+        transition: all 0.3s ease;
+        &.active {
+          background-color: $light-blue;
+          color: $purplish-blue;
+          border: 1px solid $light-blue;
+        }
+      }
+    }
+  }
+
+  .box {
+    top: -110px;
+    .step {
+      width: 90%;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .box__content {
+      width: 90%;
+      margin: 0 auto;
+      .box__title {
+        font-size: 1.4rem;
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+      }
+      .box__description {
+        font-size: 1rem;
+        margin-bottom: 20px;
+      }
+      .box__form__group {
+        .box__form__label {
+          font-size: 1rem;
+        }
+        .box__form__input {
+          font-size: 1rem;
+          &::placeholder {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+    .step__5 {
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: 582px) {
+  body {
+    font-family: $font-family-body;
+  }
+  .mobile-header {
+    display: none;
+  }
+  .sidebar {
+    display: flex;
+  }
+  .step {
+    width: 73%;
+  }
+  .box {
+    .box__content {
+      width: 80%;
+      margin: 80px auto;
+      .box__title {
+        font-size: 2.4rem;
+        margin-bottom: 20px;
+      }
+      .box__description {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+      .box__form__group {
+        .box__form__label {
+          font-size: 1.2rem;
+        }
+        .box__form__input {
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .step__5 {
+      height: 70%;
+    }
+  }
+}

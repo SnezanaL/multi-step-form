@@ -117,7 +117,6 @@ let planPrice = 0;
 showTab(currentStep); // Display the current tab
 
 function showTab(n: number) {
-  console.log("🚀 ~ showTab ~ n", n);
   if (n == 4) {
     boxContent[4].style.display = "flex";
   } else {
@@ -159,6 +158,7 @@ function showTab(n: number) {
     nextButton.style.display = "none";
   }
   fixStepIndicator(n);
+  mobileStepIndicator(n);
 }
 
 function nextPrev(n: number) {
@@ -173,15 +173,26 @@ function nextPrev(n: number) {
 }
 
 async function fixStepIndicator(n: number) {
-  // const step = await document.getElementsByClassName("step");
-  // for (let i = 0; i < step.length; i++) {
-  //   step[i].className = step[i].className.replace(" active", "");
-  // }
-  // step[n].className += " active";
   // This function removes the "active" class of all steps...
   var i,
     stepCircle = (await document.getElementsByClassName(
       "sidebar__circle"
+    )) as HTMLCollectionOf<HTMLElement>;
+  for (i = 0; i < stepCircle.length; i++) {
+    stepCircle[i].className = stepCircle[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  if (n === 4) {
+    stepCircle[3].className += " active";
+  } else {
+    stepCircle[n].className += " active";
+  }
+}
+async function mobileStepIndicator(n: number) {
+  // MOBILE: This function removes the "active" class of all steps...
+  let i,
+    stepCircle = (await document.getElementsByClassName(
+      "header__circle"
     )) as HTMLCollectionOf<HTMLElement>;
   for (i = 0; i < stepCircle.length; i++) {
     stepCircle[i].className = stepCircle[i].className.replace(" active", "");
@@ -454,7 +465,6 @@ const showPlan = (plan: string, option: string, addons: any) => {
   let addonPrices = 0;
   let total = 0;
   let noAddons = "";
-  console.log("🚀 ~ showPlan ~ addons:", addons);
 
   if (addons.length === 0) {
     noAddons = `
@@ -462,7 +472,6 @@ const showPlan = (plan: string, option: string, addons: any) => {
       <p class="summary__title">No Addons</p>
       <p class="summary__price">+$0/${priceText}</p>
       </div>`;
-    console.log("🚀 ~ showPlan ~ noAddons:", noAddons);
   } else {
     for (const item of addons) {
       const itemTitle = (Addons.title as { [key: string]: string })[item] as
@@ -482,10 +491,6 @@ const showPlan = (plan: string, option: string, addons: any) => {
   }
   step2summary.innerHTML =
     addons.length === 0 ? noAddons : step2summaryArray.join("");
-  console.log(
-    "🚀 ~ showPlan ~ step2summary.innerHTML:",
-    step2summary.innerHTML
-  );
   total = sumTotal(planPrice, addonPrices);
   totalTitle.innerHTML = `Total (per ${selectedPlan})`;
   totalSum.innerHTML = ` +$${total}/${priceText}`;

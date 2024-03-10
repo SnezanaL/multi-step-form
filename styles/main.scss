@@ -1,9 +1,11 @@
 @import "variables";
+@import "responsive";
 
 body {
   font-size: $font-size-paragraph;
   font-family: $font-family-body;
   background-color: $magnolia;
+  margin: 0;
 }
 
 /* ------------------
@@ -24,7 +26,7 @@ body {
     position: relative;
     width: 27%;
     border-radius: 10px;
-    display: flex;
+
     flex-direction: column;
     align-items: flex-start;
     background-image: url(../src/assets/images/bg-sidebar-desktop.svg);
@@ -74,25 +76,18 @@ body {
     }
   }
   .step {
-    width: 73%;
     .box__form {
-      height: 85%;
+      height: 100%;
     }
   }
   .box__content {
-    width: 80%;
-    margin: 80px auto;
     .box__title {
-      font-size: 2.4rem;
-      font-weight: 700;
       color: $marine-blue;
-      margin-bottom: 20px;
+      font-weight: 700;
     }
     .box__description {
-      font-size: 1.2rem;
       color: $cool-gray;
-      line-height: 1.2;
-      margin-bottom: 30px;
+
       font-weight: 500;
     }
     .box__form__group {
@@ -100,10 +95,9 @@ body {
       flex-direction: column;
       margin-bottom: 20px;
       .box__form__label {
-        font-size: 1.2rem;
         color: $marine-blue;
         margin-bottom: 10px;
-        font-weight: 500;
+        font-weight: 600;
       }
       .box__form__input {
         height: 50px;
@@ -114,7 +108,7 @@ body {
         color: $cool-gray;
         font-weight: 500;
         &::placeholder {
-          color: $light-gray;
+          color: $cool-gray;
         }
         &.invalid {
           background-color: $white;
@@ -219,7 +213,7 @@ input.invalid {
   justify-content: space-between;
   gap: 5px;
   .box__form__button {
-    border-radius: 10px;
+    border-radius: 6px;
     cursor: pointer;
     padding: 12px 22px;
     transition: background-color 0.3s ease;
@@ -360,17 +354,6 @@ input.invalid {
     align-items: center;
 
     .box__form__input {
-      // width: 30px;
-      // height: 30px;
-      // border-radius: 5px;
-      // border: 1px solid $light-gray;
-      // padding: 0 10px;
-      // font-size: 1.2rem;
-      // color: $cool-gray;
-      // font-weight: 500;
-      // margin-right: 10px;
-      // accent-color: $marine-blue;
-      // outline: 2px solid #c00;
     }
 
     h4 {
@@ -431,59 +414,6 @@ input[type="checkbox"] {
     position: relative;
   }
 }
-
-// $checkbox-border-color: #8b8c89;
-// $checkbox-checked-color: #274c77;
-// $checkbox-hover-color: #a3cef1;
-// $checkbox-disabled-bg-color: #d9d9d9;
-// input[type="checkbox"] {
-//   box-sizing: border-box;
-//   width: 20px;
-//   height: 20px;
-//   margin: 6px;
-//   padding: 0;
-//   border: 2px solid $checkbox-border-color;
-//   appearance: none;
-//   background-color: transparent;
-//   outline: none;
-//   transition: outline 0.1s;
-//   accent-color: blue;
-
-//   &:checked {
-//     content: "1";
-//     background-size: cover;
-//     padding: 2px;
-//     border-color: $checkbox-checked-color;
-//     color: red;
-//     //background: green;
-//     //background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: #{$checkbox-checked-color}" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
-//   }
-
-//   &:disabled {
-//     background-color: $checkbox-disabled-bg-color;
-
-//     &:checked {
-//       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: #{$checkbox-border-color}" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
-//     }
-//   }
-
-//   @media (hover: hover) {
-//     &:not(:disabled):hover {
-//       background-color: $checkbox-hover-color;
-//       outline: 6px solid $checkbox-hover-color;
-//       transform: scale(1.05);
-//     }
-//   }
-
-//   &:focus-visible {
-//     outline: 6px solid $checkbox-hover-color;
-//     transform: scale(1.05);
-//   }
-
-//   @media (prefers-reduced-motion: reduce) {
-//     transition: none;
-//   }
-// }
 
 /* ------------------------------------
 ------ Step 4 - Finishing up  ---------
@@ -562,7 +492,6 @@ input[type="checkbox"] {
 }
 
 .step__5 {
-  height: 70%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
