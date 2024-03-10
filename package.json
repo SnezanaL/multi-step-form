@@ -19,7 +19,7 @@
     "watch-ts": "tsc --watch",
     "watch-scss": "sass styles:dist --watch",
     "watch-http": "es-dev-server --app-index index.html --node-resolve --watch --open",
-    "start": "concurrently --kill-others 'npm:watch-*'"
+    "start": "concurrently --openssl-legacy-provider start --kill-others 'npm:watch-*' "
   },
   "keywords": [],
   "author": "",
