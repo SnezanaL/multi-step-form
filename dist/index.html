@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./src/assets/images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Multi-step form</title>
+    <link rel="stylesheet" href="dist/main.css" />
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="mobile-header">
+      <div class="header__step">
+        <div class="header__circle active">1</div>
+      </div>
+      <div class="header__step">
+        <div class="header__circle">2</div>
+      </div>
+      <div class="header__step">
+        <div class="header__circle">3</div>
+      </div>
+      <div class="header__step">
+        <div class="header__circle">4</div>
+      </div>
+    </header>
+    <div class="box">
+      <!-- Sidebar start -->
+      <div class="sidebar">
+        <div class="sidebar__step">
+          <div class="sidebar__circle active">1</div>
+          <div class="sidebar__content">
+            <h3 class="sidebar__text">Step 1</h3>
+            <h4 class="sidebar__title">Your info</h4>
+          </div>
+        </div>
+        <div class="sidebar__step">
+          <div class="sidebar__circle">2</div>
+          <div class="sidebar__content">
+            <h3 class="sidebar__text">Step 2</h3>
+            <h4 class="sidebar__title">Select plan</h4>
+          </div>
+        </div>
+        <div class="sidebar__step">
+          <div class="sidebar__circle">3</div>
+          <div class="sidebar__content">
+            <h3 class="sidebar__text">Step 3</h3>
+            <h4 class="sidebar__title">Add-ons</h4>
+          </div>
+        </div>
+        <div class="sidebar__step">
+          <div class="sidebar__circle">4</div>
+          <div class="sidebar__content">
+            <h3 class="sidebar__text">Step 4</h3>
+            <h4 class="sidebar__title">Summary</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar end -->
+
+      <!-- Step 1 start -->
+      <div class="step">
+        <form action="#" id="regForm" class="box__form">
+          <div class="box__content step__1">
+            <h1 class="box__title">Personal info</h1>
+            <p class="box__description">
+              Please provide your name, email address, and phone number.
+            </p>
+
+            <div class="box__form__group">
+              <label for="name" class="box__form__label"
+                >Name <span id="name-error" class="error"> </span
+              ></label>
+              <input
+                type="text"
+                id="name"
+                class="box__form__input"
+                onblur="validateInput(this)"
+                placeholder="Stephen King"
+              />
+            </div>
+            <div class="box__form__group">
+              <label for="email" class="box__form__label">
+                Email Address
+                <span id="email-error" class="error"></span>
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                class="box__form__input"
+                onblur="validateEmail(event.target.value)"
+                placeholder="e.g. stephenking@lorem.com"
+              />
+            </div>
+            <div class="box__form__group">
+              <label for="phone" class="box__form__label">
+                Phone Number
+                <span id="phone-error" class="error"> </span>
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                class="box__form__input"
+                onblur="validateInput(this)"
+                placeholder="e.g. +1 234 567 890"
+              />
+            </div>
+          </div>
+
+          <!-- Step 1 end -->
+
+          <!-- Step 2 start -->
+
+          <div class="box__content step__2">
+            <h1 class="box__title">Select your plan</h1>
+            <p class="box__description">
+              You have the option of monthly or yearly billing.
+            </p>
+
+            <div class="plans">
+              <div class="card selected" id="arcade">
+                <div class="icon">
+                  <img src="./src/assets/images/icon-arcade.svg" alt="Arcade" />
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Arcade</h3>
+                  <p class="card__price">$90/yr</p>
+
+                  <p class="card__description">2 months free</p>
+                </div>
+              </div>
+              <div class="card" id="advanced">
+                <div class="icon">
+                  <img
+                    src="./src/assets/images/icon-advanced.svg"
+                    alt="Advanced"
+                  />
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Advanced</h3>
+                  <p class="card__price">$120/yr</p>
+
+                  <p class="card__description">2 months free</p>
+                </div>
+              </div>
+              <div class="card" id="pro">
+                <div class="icon">
+                  <img src="./src/assets/images/icon-pro.svg" alt="Pro" />
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Pro</h3>
+                  <p class="card__price">$150/yr</p>
+
+                  <p class="card__description">2 months free</p>
+                </div>
+              </div>
+            </div>
+            <div class="check__box">
+              <span id="monthly">Monthly</span>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="select__plan"
+                  class="box__form__input"
+                  checked
+                />
+                <span class="slider round"></span>
+              </label>
+              <span id="yearly" class="active">Yearly</span>
+            </div>
+          </div>
+
+          <!-- Step 2 end -->
+
+          <!-- Step 3 start -->
+
+          <div class="box__content step__2">
+            <h1 class="box__title">Pick add-ons</h1>
+            <p class="box__description">
+              Add-ons help enhance your gaming experience.
+            </p>
+
+            <div class="add-ons">
+              <div class="add-on">
+                <div class="group__add-on">
+                  <div class="custom__checkbox">
+                    <input
+                      type="checkbox"
+                      id="onlineService"
+                      class="box__form__input"
+                    />
+                    <label class="addon-label" for="onlineService"></label>
+                  </div>
+
+                  <div class="box__form__label">
+                    <h4>Online service</h4>
+                    <p>Access to multiplayer games</p>
+                  </div>
+                </div>
+                <p class="add-on__price">+$1/mo</p>
+              </div>
+              <div class="add-on">
+                <div class="group__add-on">
+                  <div class="custom__checkbox">
+                    <input
+                      type="checkbox"
+                      id="largerStorage"
+                      class="box__form__input"
+                    />
+                    <label class="addon-label" for="largerStorage"></label>
+                  </div>
+
+                  <div class="box__form__label">
+                    <h4>Larger storage</h4>
+                    <p>Extra 1TB of cloud save</p>
+                  </div>
+                </div>
+                <p class="add-on__price">+$2/mo</p>
+              </div>
+              <div class="add-on">
+                <div class="group__add-on">
+                  <div class="custom__checkbox">
+                    <input
+                      type="checkbox"
+                      id="customizableProfile"
+                      class="box__form__input"
+                    />
+                    <label
+                      class="addon-label"
+                      for="customizableProfile"
+                    ></label>
+                  </div>
+
+                  <div class="box__form__label">
+                    <h4>Customizable Profile</h4>
+                    <p>Custom theme on your profile</p>
+                  </div>
+                </div>
+                <p class="add-on__price">+$2/mo</p>
+              </div>
+            </div>
+          </div>
+          <!-- Step 3 end -->
+
+          <!-- Step 4 start -->
+          <div class="box__content step__4">
+            <h1 class="box__title">Finishing up</h1>
+            <p class="box__description">
+              Double-check everything looks OK before confirming.
+            </p>
+
+            <div class="summary">
+              <div class="summary__group">
+                <div class="summary__step1">
+                  <div class="summary__content">
+                    <h4 id="summary__title">Arcade (Monthly)</h4>
+                    <p id="summary__description">
+                      <a href="" id="changePlan">Change</a>
+                    </p>
+                  </div>
+
+                  <h4 id="summary__price">$9/mo</h4>
+                </div>
+
+                <div id="summary__step2"></div>
+              </div>
+              <div class="summary__total">
+                <p id="totalTitle" class="summary__title">Total (per month)</p>
+                <p id="totalSum" class="summary__price">+$12/mo</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 end -->
+
+          <!-- Step 5 start -->
+          <div class="box__content step__5">
+            <div class="box__icon">
+              <img
+                src="./src/assets/images/icon-thank-you.svg"
+                alt="Checkmark"
+                class="box__icon__img"
+              />
+            </div>
+            <h1 class="box__title">Thank you!</h1>
+            <p class="box__description">
+              Thanks for confirming your subscription! We hope you have fun
+              using our platform. If you ever need support, please feel free to
+              email us at
+              <a href="mailto:#" class="box__link">support@loremgaming.co</a>.
+            </p>
+          </div>
+          <!-- Step 5 end -->
+
+          <div style="overflow: auto" class="btns">
+            <button
+              type="button"
+              class="box__form__button prevBtn"
+              id="prevBtn"
+              onclick="nextPrev(-1)"
+            >
+              Go Back
+            </button>
+            <button
+              type="button"
+              class="box__form__button nextBtn"
+              id="nextBtn"
+              onclick="nextPrev(1)"
+            >
+              Next Step
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by&nbsp;
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
+        Frontend Mentor</a
+      >
+      . Coded by&nbsp;
+      <a href="https://snezanal.github.io/portfolio/"> Snezana L</a>.
+    </div>
+
+    <script src="dist/index.js"></script>
+  </body>
+</html>

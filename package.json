@@ -14,8 +14,10 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
+    "build-html": "@powershell copy index.html dist/index.html",
     "build-ts": "tsc",
     "build-sass": "sass",
+    "build": "npm run build-html && npm run build-ts && npm run build-sass",
     "watch-ts": "tsc --watch",
     "watch-scss": "sass styles:dist --watch",
     "watch-http": "es-dev-server --app-index index.html --node-resolve --watch --open",
