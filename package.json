@@ -10,6 +10,7 @@
     "@types/node": "^20.11.24",
     "concurrently": "^8.2.2",
     "es-dev-server": "^2.1.0",
+    "gh-pages": "^6.1.1",
     "sass": "^1.71.1",
     "typescript": "^5.3.3"
   },
