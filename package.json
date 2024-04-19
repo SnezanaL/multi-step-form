@@ -22,7 +22,9 @@
     "watch-ts": "tsc --watch",
     "watch-scss": "sass styles:dist --watch",
     "watch-http": "es-dev-server --app-index index.html --node-resolve --watch --open",
-    "start": "concurrently --openssl-legacy-provider start --kill-others 'npm:watch-*' "
+    "start": "concurrently --openssl-legacy-provider start --kill-others 'npm:watch-*' ",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
