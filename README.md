@@ -14,7 +14,6 @@ This is a solution to the [Multi-step form challenge on Frontend Mentor](https:/
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -34,12 +33,22 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./src/design/desktop-design-step-1.jpg)
+
+![](./src/design/active-states-step-2.jpg)
+
+![](./src/design/desktop-design-step-3.jpg)
+
+![](./src/design/desktop-design-step-4.jpg)
+
+![](./src/design/mobile-design-step-1.jpg)
+
+![](./src/design/mobile-design-step-4-yearly.jpg)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Solution URL ](https://github.com/SnezanaL/multi-step-form)
+- Live Site URL: [Live site URL](https://snezanal.github.io/multi-step-form/)
 
 ## My process
 
@@ -52,12 +61,3 @@ Users should be able to:
 - Mobile-first workflow
 - JavaScript
 - TypeScript
-- [Add any other technology here]
-
-### What I learned
-
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
